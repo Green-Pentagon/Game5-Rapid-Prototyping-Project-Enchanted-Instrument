@@ -38,14 +38,14 @@ public class Grabable : MonoBehaviour
         {
             UpdateMouseCoords();
             Debug.Log("Grab Triggered! MousePos = " + WorldMousePos + " | Transform: " + transform.position);
-            if (WorldMousePos.x >= (transform.position.x - transform.localScale.x/2) && WorldMousePos.x <= (transform.position.x + transform.localScale.x / 2))
+            if (Mathf.Abs(transform.position.x - WorldMousePos.x) <= transform.localScale.x/2)
             {
-                if (WorldMousePos.y >= (transform.position.y - transform.localScale.x / 2) && WorldMousePos.y <= (transform.position.x + transform.localScale.y / 2))
+                if (Mathf.Abs(transform.position.y - WorldMousePos.y) <= transform.localScale.y / 2)
                 {
                     Debug.Log("Grab Success!");
                     grabOffset = transform.position - WorldMousePos;
                     rb.gravityScale = 0.0f;
-                    rb.velocity = Vector3.zero;
+                    rb.velocity = new Vector2(rb.velocity.x,0.0f);
                     grabTriggered = true;
                 }
             }
@@ -64,8 +64,8 @@ public class Grabable : MonoBehaviour
         if (grabTriggered)
         {
             UpdateMouseCoords();
-            transform.position = WorldMousePos + grabOffset;
-            rb.centerOfMass = grabOffset;
+            transform.position = Vector2.Lerp(transform.position,WorldMousePos + grabOffset,0.1f);
+            rb.centerOfMass = -grabOffset;
         }
     }
 }
