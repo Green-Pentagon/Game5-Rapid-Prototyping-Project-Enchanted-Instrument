@@ -46,7 +46,7 @@ public class Grabable : MonoBehaviour
                     grabOffset = transform.position - WorldMousePos;
                     rb.gravityScale = 0.0f;
                     //rb.centerOfMass = -grabOffset;
-                    rb.velocity = new Vector2(rb.velocity.x,0.0f);
+                    rb.velocity = Vector2.zero;
                     grabTriggered = true;
                 }
             }
