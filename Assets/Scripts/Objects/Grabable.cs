@@ -31,12 +31,12 @@ public class Grabable : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-        
-        
+        UpdateMouseCoords();
+
+
         if (Input.GetKeyDown(grabKey) && !grabTriggered)
         {
-            UpdateMouseCoords();
+            //UpdateMouseCoords();
             Debug.Log("Grab Triggered! MousePos = " + WorldMousePos + " | Transform: " + transform.position);
             if (Mathf.Abs(transform.position.x - WorldMousePos.x) <= transform.localScale.x/2)
             {
@@ -45,6 +45,7 @@ public class Grabable : MonoBehaviour
                     Debug.Log("Grab Success!");
                     grabOffset = transform.position - WorldMousePos;
                     rb.gravityScale = 0.0f;
+                    //rb.centerOfMass = -grabOffset;
                     rb.velocity = new Vector2(rb.velocity.x,0.0f);
                     grabTriggered = true;
                 }
@@ -56,16 +57,14 @@ public class Grabable : MonoBehaviour
         {
             grabOffset = Vector3.zero;
             rb.gravityScale = 1.0f;
-            rb.centerOfMass = Vector3.zero;
+            //rb.centerOfMass = Vector3.zero;
             grabTriggered = false;
         }
 
 
         if (grabTriggered)
         {
-            UpdateMouseCoords();
             transform.position = Vector2.Lerp(transform.position,WorldMousePos + grabOffset,0.1f);
-            rb.centerOfMass = -grabOffset;
         }
     }
 }
