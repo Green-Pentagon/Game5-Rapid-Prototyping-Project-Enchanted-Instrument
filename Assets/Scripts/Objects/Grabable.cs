@@ -5,7 +5,6 @@ using UnityEngine;
 public class Grabable : MonoBehaviour
 {
     public Camera Camera;
-    private Rigidbody2D rb;
     private KeyCode grabKey = KeyCode.Mouse0; //default: mouse0, left click
     private bool grabTriggered = false;
     private Vector3 WorldMousePos = Vector3.zero;
@@ -20,8 +19,6 @@ public class Grabable : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
-        rb = GetComponent<Rigidbody2D>();
         if (Camera == null)
         {
             Camera = Camera.main;
@@ -44,9 +41,6 @@ public class Grabable : MonoBehaviour
                 {
                     Debug.Log("Grab Success!");
                     grabOffset = transform.position - WorldMousePos;
-                    rb.gravityScale = 0.0f;
-                    //rb.centerOfMass = -grabOffset;
-                    rb.velocity = Vector2.zero;
                     grabTriggered = true;
                 }
             }
@@ -56,8 +50,6 @@ public class Grabable : MonoBehaviour
         else if (Input.GetKeyUp(grabKey) && grabTriggered)
         {
             grabOffset = Vector3.zero;
-            rb.gravityScale = 1.0f;
-            //rb.centerOfMass = Vector3.zero;
             grabTriggered = false;
         }
 
