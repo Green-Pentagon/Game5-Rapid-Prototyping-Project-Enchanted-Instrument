@@ -6,10 +6,12 @@ using UnityEngine.UIElements;
 
 public class StorerBehaviour : MonoBehaviour
 {
-
+    public Sprite[] SpriteStates;
     public TextMeshPro[] StoreReadout;
     public AudioSource[] associatedSounds;
+    private SpriteRenderer SR;
     private int[] amountHeld = {0,0,0,0};
+    private bool isEmpty = true;
     private string ResourceSoundID;
 
     IEnumerator UpdateText()
@@ -26,6 +28,8 @@ public class StorerBehaviour : MonoBehaviour
         for (int i = 0; i < amountHeld.Length; i++)
         {
             amountHeld[i] = 0;
+            isEmpty = true;
+            SR.sprite = SpriteStates[0];
         }
         StartCoroutine(UpdateText());
     }
@@ -33,7 +37,7 @@ public class StorerBehaviour : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        SR = GetComponent<SpriteRenderer>();
         if (associatedSounds == null)
         {
             Debug.LogError("No associated sound source has been attached on object for StorerBehaviour.cs!");
@@ -58,6 +62,11 @@ public class StorerBehaviour : MonoBehaviour
             {
                 if (associatedSounds[i].clip.name.Substring(0,1) == ResourceSoundID)
                 {
+                    if (isEmpty)
+                    {
+                        SR.sprite = SpriteStates[1];
+                        isEmpty = false;
+                    }
                     associatedSounds[i].Play();
                     amountHeld[i]++;
                 }
