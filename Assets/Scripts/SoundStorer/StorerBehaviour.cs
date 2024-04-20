@@ -7,32 +7,43 @@ using UnityEngine.UIElements;
 public class StorerBehaviour : MonoBehaviour
 {
 
-    public TextMeshPro StoreReadout;
-    private AudioSource associatedSound;
-    private int amountHeld = 0;
-    private string SOUND_ID;
+    public TextMeshPro[] StoreReadout;
+    public AudioSource[] associatedSounds;
+    private int[] amountHeld = {0,0,0,0};
+    private string ResourceSoundID;
 
-    public string getSoundID()
+    IEnumerator UpdateText()
     {
-        return SOUND_ID;
+        for (int i = 0; i < amountHeld.Length; i++)
+        {
+            StoreReadout[i].text = amountHeld[i].ToString();
+        }
+        yield return null;
+    }
+
+    public void Reset()
+    {
+        for (int i = 0; i < amountHeld.Length; i++)
+        {
+            amountHeld[i] = 0;
+        }
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        associatedSound = GetComponent<AudioSource>();
-        if (associatedSound == null)
+        
+        if (associatedSounds == null)
         {
             Debug.LogError("No associated sound source has been attached on object for StorerBehaviour.cs!");
             return;
         }
-        SOUND_ID = associatedSound.name.Substring(0);
     }
 
     // Update is called once per frame
     private void Update()
     {
-        StoreReadout.text = amountHeld.ToString();
+
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -40,9 +51,19 @@ public class StorerBehaviour : MonoBehaviour
         Debug.Log("Trigger entered!");
         if (collision.gameObject.tag == "Resource")
         {
-            amountHeld++;
-            associatedSound.Play();
+            ResourceSoundID = collision.gameObject.name.Substring(0,1);
+            Debug.Log("Sound ID " + ResourceSoundID + " Collided");
+            for(int i = 0; i < associatedSounds.Length; i++)
+            {
+                if (associatedSounds[i].clip.name.Substring(0,1) == ResourceSoundID)
+                {
+                    associatedSounds[i].Play();
+                    amountHeld[i]++;
+                }
+            }
             Destroy(collision.gameObject);
+
+            StartCoroutine(UpdateText());
         }
     }
 }

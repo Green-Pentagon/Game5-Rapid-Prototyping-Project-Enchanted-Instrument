@@ -5,11 +5,21 @@ using UnityEngine;
 public class Grabable : MonoBehaviour
 {
     public Camera Camera;
+    public bool startGrabbed = true;
+    private Rigidbody2D rb;
+    private float defaultGravityScale;
     private KeyCode grabKey = KeyCode.Mouse0; //default: mouse0, left click
-    private bool grabTriggered = false;
+    private bool grabTriggered;
+    private bool usesRB = false;
     private Vector3 WorldMousePos = Vector3.zero;
     private Vector3 grabOffset = Vector3.zero;
 
+    
+    public bool IsGrabbed()
+    {
+        return grabTriggered;
+    }
+    
     void UpdateMouseCoords()
     {
         WorldMousePos = Camera.ScreenToWorldPoint(Input.mousePosition);
@@ -19,6 +29,19 @@ public class Grabable : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (TryGetComponent<Rigidbody2D>(out Rigidbody2D temp))
+        {
+            rb = temp;
+            defaultGravityScale = rb.gravityScale;
+            usesRB = true;
+            if (startGrabbed)
+            {
+                rb.gravityScale = 0.0f;
+                rb.velocity = Vector2.zero;
+            }
+        }
+
+        grabTriggered = startGrabbed;
         if (Camera == null)
         {
             Camera = Camera.main;
@@ -42,6 +65,11 @@ public class Grabable : MonoBehaviour
                     Debug.Log("Grab Success!");
                     grabOffset = transform.position - WorldMousePos;
                     grabTriggered = true;
+                    if (usesRB)
+                    {
+                        rb.gravityScale = 0.0f;
+                        rb.velocity = Vector2.zero;
+                    }
                 }
             }
 
@@ -51,11 +79,16 @@ public class Grabable : MonoBehaviour
         {
             grabOffset = Vector3.zero;
             grabTriggered = false;
+            if (usesRB)
+            {
+                rb.gravityScale = defaultGravityScale;
+            }
         }
 
 
         if (grabTriggered)
         {
+
             transform.position = Vector2.Lerp(transform.position,WorldMousePos + grabOffset,0.1f);
         }
     }
