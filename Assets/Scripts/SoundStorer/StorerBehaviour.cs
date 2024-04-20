@@ -27,6 +27,7 @@ public class StorerBehaviour : MonoBehaviour
         {
             amountHeld[i] = 0;
         }
+        StartCoroutine(UpdateText());
     }
 
     // Start is called before the first frame update
