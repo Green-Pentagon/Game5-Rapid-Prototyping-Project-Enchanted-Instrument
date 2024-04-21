@@ -84,7 +84,8 @@ public class Grabable : MonoBehaviour
                     {
                         try
                         {
-                            GameLogicPlayTrackScript.Play(name);
+                            string test = (name.Replace("(Clone)", ""));
+                            GameLogicPlayTrackScript.Play(test);
                         }
                         catch
                         {
