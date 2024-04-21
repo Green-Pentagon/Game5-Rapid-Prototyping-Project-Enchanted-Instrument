@@ -112,6 +112,7 @@ GameObject:
   - component: {fileID: 3793285084909580957}
   - component: {fileID: 5565187535614151321}
   - component: {fileID: 6895724483845452691}
+  - component: {fileID: 5165341154116801203}
   m_Layer: 0
   m_Name: 1313100
   m_TagString: StickyNote
@@ -248,3 +249,15 @@ MonoBehaviour:
   Camera: {fileID: 0}
   startGrabbed: 0
   isStickyNote: 1
+--- !u!114 &5165341154116801203
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2727486196407821809}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97f3737937ed77c42b6e53ace4c6bc23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

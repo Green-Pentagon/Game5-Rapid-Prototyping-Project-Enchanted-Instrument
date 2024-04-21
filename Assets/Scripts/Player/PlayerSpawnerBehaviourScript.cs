@@ -7,6 +7,7 @@ public class PlayerSpawnerBehaviourScript : MonoBehaviour
 {
     public Camera Camera;
     public GameObject ThingToSpawn;
+    public GameObject ThingParent;
     private Queue<GameObject> spawnStack = new Queue<GameObject>();
     private int spawnLimit = 10;
     //private KeyCode spawnKey = KeyCode.Mouse1; //default: mouse1, right click
@@ -34,6 +35,10 @@ public class PlayerSpawnerBehaviourScript : MonoBehaviour
         if (Camera == null)
         {
             Camera = Camera.main;
+        }
+        if (ThingParent == null)
+        {
+            ThingParent = gameObject;
         }
     }
 

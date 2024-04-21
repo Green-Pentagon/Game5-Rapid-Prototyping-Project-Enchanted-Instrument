@@ -5,6 +5,7 @@ using UnityEngine;
 public class StickyNoteSpawner : MonoBehaviour
 {
     public GameObject[] ObjectToSpawn;
+    public GameObject StickyNoteParent;
     public BoxCollider SpawnRegion;
     public bool CullAndSpawnNew = true;//will remove the oldest gameobject instance when the queue fills up every spawn delay tick
     public float SpawnDelay = 5.0f;
@@ -50,6 +51,7 @@ public class StickyNoteSpawner : MonoBehaviour
                 Vector3 rndPos = new Vector3(Random.Range(SpawnBounds[0].x, SpawnBounds[1].x), Random.Range(SpawnBounds[0].y, SpawnBounds[1].y), Random.Range(SpawnBounds[0].z, SpawnBounds[1].z));
 
                 temp = Instantiate(ObjectToSpawn[Random.Range(0,ObjectToSpawn.Length)], rndPos, transform.rotation);
+                temp.transform.SetParent(StickyNoteParent.transform);
                 spawnQueue.Enqueue(temp);
                 temp = null;
             }
