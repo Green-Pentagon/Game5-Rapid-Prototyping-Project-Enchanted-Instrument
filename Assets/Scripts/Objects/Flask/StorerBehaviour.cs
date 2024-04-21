@@ -103,7 +103,7 @@ public class StorerBehaviour : MonoBehaviour
         }
         else if (collision.gameObject.tag == "StickyNote")
         {
-            if (IsOrderComplete(collision.gameObject.name))
+            if (IsOrderComplete(collision.gameObject.name.Replace("(Clone)","")))
             {
                 collision.gameObject.GetComponent<Grabable>().PlayDestroyAudio();
                 OrdersCompleteReadout.text = OrdersCompleteReadout.text + "| ";
