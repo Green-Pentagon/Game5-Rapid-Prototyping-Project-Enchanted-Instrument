@@ -7,6 +7,7 @@ using UnityEngine.UIElements;
 
 public class StorerBehaviour : MonoBehaviour
 {
+    public TextMeshProUGUI OrdersCompleteReadout;
     public Sprite[] SpriteStates;
     public TextMeshPro[] StoreReadout;
     public AudioSource[] associatedSounds;
@@ -105,6 +106,7 @@ public class StorerBehaviour : MonoBehaviour
             if (IsOrderComplete(collision.gameObject.name))
             {
                 collision.gameObject.GetComponent<Grabable>().PlayDestroyAudio();
+                OrdersCompleteReadout.text = OrdersCompleteReadout.text + "| ";
                 Destroy(collision.gameObject);
                 Reset();
             }
