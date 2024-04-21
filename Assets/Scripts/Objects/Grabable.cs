@@ -17,7 +17,11 @@ public class Grabable : MonoBehaviour
     private Vector3 WorldMousePos = Vector3.zero;
     private Vector3 grabOffset = Vector3.zero;
 
-    
+    public void PlayDestroyAudio()
+    {
+        GameLogicPlayTrackScript.PointSound();
+    }
+
     public bool IsGrabbed()
     {
         return grabTriggered;
@@ -104,15 +108,8 @@ public class Grabable : MonoBehaviour
 
         if (grabTriggered)
         {
-
             transform.position = Vector2.Lerp(transform.position,WorldMousePos + grabOffset,0.1f);
         }
     }
-    private void OnDestroy()
-    {
-        if (isStickyNote)
-        {
-            GameLogicPlayTrackScript.PointSound();
-        }
-    }
+
 }

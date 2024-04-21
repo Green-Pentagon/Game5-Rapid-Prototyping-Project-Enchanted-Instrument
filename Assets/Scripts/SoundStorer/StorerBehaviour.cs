@@ -104,6 +104,7 @@ public class StorerBehaviour : MonoBehaviour
         {
             if (IsOrderComplete(collision.gameObject.name))
             {
+                collision.gameObject.GetComponent<Grabable>().PlayDestroyAudio();
                 Destroy(collision.gameObject);
                 Reset();
             }
