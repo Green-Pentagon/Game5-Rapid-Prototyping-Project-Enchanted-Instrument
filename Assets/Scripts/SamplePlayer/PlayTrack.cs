@@ -7,6 +7,24 @@ public class PlayTrack : MonoBehaviour
     public AudioClip[] tracks;//add tracks in inspector
     private AudioSource AudioSource;
 
+    public void Play(string trackName)
+    {
+        for (int i = 0; i < tracks.Length; i++)
+        {
+            if (tracks[i].name == trackName)
+            {
+                AudioSource.clip = tracks[i];
+                AudioSource.Play();
+            }
+        }
+    }
+
+    public void PointSound()
+    {
+        AudioSource.clip = tracks[0];
+        AudioSource.Play();
+    }
+
     // Start is called before the first frame update
     void Start()
     {

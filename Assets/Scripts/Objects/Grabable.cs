@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class Grabable : MonoBehaviour
 {
+    public PlayTrack GameLogicPlayTrackScript;
     public Camera Camera;
     public bool startGrabbed = true;
+    public bool isStickyNote = false;
+    private BoxCollider2D Collider;
     private Rigidbody2D rb;
     private float defaultGravityScale;
     private KeyCode grabKey = KeyCode.Mouse0; //default: mouse0, left click
@@ -29,6 +32,7 @@ public class Grabable : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Collider = GetComponent<BoxCollider2D>();
         if (TryGetComponent<Rigidbody2D>(out Rigidbody2D temp))
         {
             rb = temp;
@@ -58,10 +62,11 @@ public class Grabable : MonoBehaviour
         {
             //UpdateMouseCoords();
             Debug.Log("Grab Triggered! MousePos = " + WorldMousePos + " | Transform: " + transform.position);
-            if (Mathf.Abs(transform.position.x - WorldMousePos.x) <= transform.localScale.x/2)
+            if (Mathf.Abs(transform.position.x - WorldMousePos.x) <= Collider.bounds.size.x / 2)
             {
-                if (Mathf.Abs(transform.position.y - WorldMousePos.y) <= transform.localScale.y / 2)
+                if (Mathf.Abs(transform.position.y - WorldMousePos.y) <= Collider.bounds.size.y / 2)
                 {
+                    
                     Debug.Log("Grab Success!");
                     grabOffset = transform.position - WorldMousePos;
                     grabTriggered = true;
@@ -70,10 +75,21 @@ public class Grabable : MonoBehaviour
                         rb.gravityScale = 0.0f;
                         rb.velocity = Vector2.zero;
                     }
+
+                    if (isStickyNote)
+                    {
+                        try
+                        {
+                            GameLogicPlayTrackScript.Play(name);
+                        }
+                        catch
+                        {
+                            Debug.LogError("Component marked as sticky note not named correctly!");
+                        }
+                        
+                    }
                 }
             }
-
-            
         }
         else if (Input.GetKeyUp(grabKey) && grabTriggered)
         {
@@ -90,6 +106,13 @@ public class Grabable : MonoBehaviour
         {
 
             transform.position = Vector2.Lerp(transform.position,WorldMousePos + grabOffset,0.1f);
+        }
+    }
+    private void OnDestroy()
+    {
+        if (isStickyNote)
+        {
+            GameLogicPlayTrackScript.PointSound();
         }
     }
 }

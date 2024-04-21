@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -13,6 +14,30 @@ public class StorerBehaviour : MonoBehaviour
     private int[] amountHeld = {0,0,0,0};
     private bool isEmpty = true;
     private string ResourceSoundID;
+
+    private bool IsOrderComplete(string stickyName)
+    {
+        Dictionary<string, int> AmountNeeded = new Dictionary<string, int>();
+        bool isValid = true;
+        AmountNeeded.Add("0", 0);
+        AmountNeeded.Add("1", 0);
+        AmountNeeded.Add("2", 0);
+        AmountNeeded.Add("3", 0);
+        for (int i = 0; i < stickyName.Length ;i++){
+            AmountNeeded[stickyName.Substring(i, 1)] += 1;
+        }
+
+        for (int i = 0; i < amountHeld.Length; i++)
+        {
+            if (amountHeld[i] != AmountNeeded[i.ToString()])
+            {
+                isValid = false;
+                break;
+            }
+        }
+         return isValid;
+    }
+
 
     IEnumerator UpdateText()
     {
@@ -74,6 +99,14 @@ public class StorerBehaviour : MonoBehaviour
             Destroy(collision.gameObject);
 
             StartCoroutine(UpdateText());
+        }
+        else if (collision.gameObject.tag == "StickyNote")
+        {
+            if (IsOrderComplete(collision.gameObject.name))
+            {
+                Destroy(collision.gameObject);
+                Reset();
+            }
         }
     }
 }
