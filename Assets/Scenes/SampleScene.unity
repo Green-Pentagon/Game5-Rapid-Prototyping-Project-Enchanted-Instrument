@@ -2918,6 +2918,18 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2816559336830558533, guid: ed42cc32d1ff52341bfdde859ee99def, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2816559336830558533, guid: ed42cc32d1ff52341bfdde859ee99def, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2816559336830558533, guid: ed42cc32d1ff52341bfdde859ee99def, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2984728875328094094, guid: ed42cc32d1ff52341bfdde859ee99def, type: 3}
       propertyPath: StickyNoteSpawner
       value: 
