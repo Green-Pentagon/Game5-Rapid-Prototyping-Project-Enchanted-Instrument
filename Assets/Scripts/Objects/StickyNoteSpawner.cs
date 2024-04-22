@@ -9,14 +9,19 @@ public class StickyNoteSpawner : MonoBehaviour
     public BoxCollider SpawnRegion;
     public bool CullAndSpawnNew = true;//will remove the oldest gameobject instance when the queue fills up every spawn delay tick
     public float SpawnDelay = 5.0f;
-    public int MaxSpawnCount = 1;
+    public int MaxSpawnCount = 4;
 
-    private Queue<GameObject> spawnQueue = new Queue<GameObject>();
+    //private Queue<GameObject> spawnQueue = new Queue<GameObject>();
+    private int spawnedInstances = 0;
     private float timerCurrent = 0.0f;
     private Vector3[] SpawnBounds = new Vector3[2];
 
     private GameObject temp;
 
+    public void StickyDestroyed()
+    {
+        spawnedInstances--;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -39,20 +44,20 @@ public class StickyNoteSpawner : MonoBehaviour
         if (timerCurrent >= SpawnDelay)//if time to spawn
         {
             timerCurrent = 0.0f;
-            if (spawnQueue.Count >= MaxSpawnCount && CullAndSpawnNew)//removes first instance spawned by spawner if enabled
-            {
-                temp = spawnQueue.Dequeue();
-                Destroy(temp);
-                temp = null;
-            }
+            //if (spawnQueue.Count >= MaxSpawnCount && CullAndSpawnNew)//removes first instance spawned by spawner if enabled
+            //{
+            //    temp = spawnQueue.Dequeue();
+            //    Destroy(temp);
+            //    temp = null;
+            //}
 
-            if (spawnQueue.Count < MaxSpawnCount)
+            if (spawnedInstances < MaxSpawnCount)
             {
                 Vector3 rndPos = new Vector3(Random.Range(SpawnBounds[0].x, SpawnBounds[1].x), Random.Range(SpawnBounds[0].y, SpawnBounds[1].y), Random.Range(SpawnBounds[0].z, SpawnBounds[1].z));
-
+                spawnedInstances++;
                 temp = Instantiate(ObjectToSpawn[Random.Range(0,ObjectToSpawn.Length)], rndPos, transform.rotation);
                 temp.transform.SetParent(StickyNoteParent.transform);
-                spawnQueue.Enqueue(temp);
+                //spawnQueue.Enqueue(temp);
                 temp = null;
             }
         }
@@ -60,7 +65,5 @@ public class StickyNoteSpawner : MonoBehaviour
         {
             timerCurrent += Time.deltaTime;
         }
-
-
     }
 }

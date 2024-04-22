@@ -7,6 +7,7 @@ using UnityEngine.UIElements;
 
 public class StorerBehaviour : MonoBehaviour
 {
+    public StickyNoteSpawner StickyNoteSpawner;
     public TextMeshProUGUI OrdersCompleteReadout;
     public Sprite[] SpriteStates;
     public TextMeshPro[] StoreReadout;
@@ -98,7 +99,6 @@ public class StorerBehaviour : MonoBehaviour
                 }
             }
             Destroy(collision.gameObject);
-
             StartCoroutine(UpdateText());
         }
         else if (collision.gameObject.tag == "StickyNote")
@@ -107,6 +107,7 @@ public class StorerBehaviour : MonoBehaviour
             {
                 collision.gameObject.GetComponent<Grabable>().PlayDestroyAudio();
                 OrdersCompleteReadout.text = OrdersCompleteReadout.text + "| ";
+                StickyNoteSpawner.StickyDestroyed();
                 Destroy(collision.gameObject);
                 Reset();
             }
