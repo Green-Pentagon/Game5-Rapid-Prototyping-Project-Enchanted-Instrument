@@ -1181,6 +1181,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 3019049450616417930, guid: 1e7859325bde0e1458cfce790199a764, type: 3}
   m_PrefabInstance: {fileID: 4372522732430205265}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &785945249 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7900142779052764056, guid: 1e7859325bde0e1458cfce790199a764, type: 3}
+  m_PrefabInstance: {fileID: 4372522732430205265}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 785945247}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc709833fc73b7e47903d753dc46484a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &833234623
 GameObject:
   m_ObjectHideFlags: 0
@@ -2915,6 +2926,10 @@ PrefabInstance:
       propertyPath: OrdersCompleteReadout
       value: 
       objectReference: {fileID: 2104427853}
+    - target: {fileID: 2984728875328094094, guid: ed42cc32d1ff52341bfdde859ee99def, type: 3}
+      propertyPath: GameLogicPlayTrackScript
+      value: 
+      objectReference: {fileID: 785945249}
     - target: {fileID: 3976697448127234106, guid: ed42cc32d1ff52341bfdde859ee99def, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -3117,6 +3132,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7900142779052764056, guid: 1e7859325bde0e1458cfce790199a764, type: 3}
+      propertyPath: tracks.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7900142779052764056, guid: 1e7859325bde0e1458cfce790199a764, type: 3}
+      propertyPath: tracks.Array.data[5]
+      value: 
+      objectReference: {fileID: 8300000, guid: c838e141d15304d4aab3a2a752a6e077, type: 3}
     - target: {fileID: 7924054231913666357, guid: 1e7859325bde0e1458cfce790199a764, type: 3}
       propertyPath: Camera
       value: 

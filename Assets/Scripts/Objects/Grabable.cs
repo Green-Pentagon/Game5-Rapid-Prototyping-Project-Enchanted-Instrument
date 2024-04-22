@@ -17,10 +17,10 @@ public class Grabable : MonoBehaviour
     private Vector3 WorldMousePos = Vector3.zero;
     private Vector3 grabOffset = Vector3.zero;
 
-    public void PlayDestroyAudio()
-    {
-        GameLogicPlayTrackScript.PointSound();
-    }
+    //public void PlayDestroyAudio()
+    //{
+    //    GameLogicPlayTrackScript.PointSound();
+    //}
 
     public bool IsGrabbed()
     {

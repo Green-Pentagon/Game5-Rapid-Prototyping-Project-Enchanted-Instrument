@@ -7,6 +7,7 @@ using UnityEngine.UIElements;
 
 public class StorerBehaviour : MonoBehaviour
 {
+    public PlayTrack GameLogicPlayTrackScript;
     public StickyNoteSpawner StickyNoteSpawner;
     public TextMeshProUGUI OrdersCompleteReadout;
     public Sprite[] SpriteStates;
@@ -58,6 +59,7 @@ public class StorerBehaviour : MonoBehaviour
             isEmpty = true;
             SR.sprite = SpriteStates[0];
         }
+        GameLogicPlayTrackScript.Play("Reset");
         StartCoroutine(UpdateText());
     }
 
@@ -105,7 +107,8 @@ public class StorerBehaviour : MonoBehaviour
         {
             if (IsOrderComplete(collision.gameObject.name.Replace("(Clone)","")))
             {
-                collision.gameObject.GetComponent<Grabable>().PlayDestroyAudio();
+                GameLogicPlayTrackScript.Play("Point");
+                //collision.gameObject.GetComponent<Grabable>().PlayDestroyAudio();
                 OrdersCompleteReadout.text = OrdersCompleteReadout.text + "| ";
                 StickyNoteSpawner.StickyDestroyed();
                 Destroy(collision.gameObject);

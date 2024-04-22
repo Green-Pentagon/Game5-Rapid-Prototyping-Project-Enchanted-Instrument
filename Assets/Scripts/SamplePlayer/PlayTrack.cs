@@ -19,11 +19,11 @@ public class PlayTrack : MonoBehaviour
         }
     }
 
-    public void PointSound()
-    {
-        AudioSource.clip = tracks[0];
-        AudioSource.Play();
-    }
+    //public void PointSound()
+    //{
+    //    AudioSource.clip = tracks[0];
+    //    AudioSource.Play();
+    //}
 
     // Start is called before the first frame update
     void Start()
