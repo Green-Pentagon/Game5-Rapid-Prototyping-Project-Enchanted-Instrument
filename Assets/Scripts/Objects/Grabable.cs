@@ -109,7 +109,7 @@ public class Grabable : MonoBehaviour
 
         if (grabTriggered)
         {
-            transform.position = Vector2.Lerp(transform.position,WorldMousePos + grabOffset,0.1f);
+            transform.position = Vector2.Lerp(transform.position,WorldMousePos + grabOffset,0.5f);
         }
     }
 
